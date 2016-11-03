@@ -7,40 +7,42 @@ public class moveAction : MonoBehaviour
     public static float maxSpeed = 20f;
     public float speed = 10f;
     public bool changeColor;
-    public List<GameObject> exitNodes;
-    
-    //private Rigidbody2D rb2d;
+    public int i = 0;
+
+    private Rigidbody2D rb2d;
+    private Transform trans;
 
     void Awake()
     {
-        exitNodes = new List<GameObject>();
-        CreateList();
+        rb2d = GameObject.Find("wall-red").GetComponent<Rigidbody2D>();
+        print("aaa");
     }
 
     // Use this for initialization
     void Start()
-    {
-        //rb2d = gameObject.GetComponent<Rigidbody2D>();
+    {       
+        print("start" + i++);
     }
 
-    private void CreateList()
+    public void CreateList()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            Vector3 rndPos;
-            rndPos = new Vector3(Random.Range(10, 30), Random.Range(10, 30));
+        Vector3 rndPos;
+        rndPos = new Vector3(Random.Range(10, 15), Random.Range(0, 10), 0);
 
-            GameObject node;
-            node = Instantiate(gameObject, rndPos, Quaternion.identity) as GameObject;
+        //Rigidbody2D node;
+        rb2d = Instantiate(rb2d, rndPos, Quaternion.identity) as Rigidbody2D;
 
-            exitNodes.Add(node);
-            Debug.Log(exitNodes.Count);
-        }
+         //exitNodes.Add(node);
+        //Debug.Log(exitNodes.Count);
     }
    
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            CreateList();
+        }
         //Vector3 vtWall = new Vector3();
         //transform.position += vtWall * speed * Time.deltaTime;
         //rb2d.AddForce(Vector2.left * speed * 2);
